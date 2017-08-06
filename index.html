@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cold Brew Method</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css?family=Bitter:400,700,Open+Sans:500,Permanent+Marker" rel="stylesheet"></link>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+</head>
+<body>
+
+
+<div class='brown'>
+  <div class='container'>
+
+   <div class='col-sm-4'>
+     <h1><span class='marker'>Cold Brew</span> Calculator</h1>
+     <div class='from-group'>
+       <h3>How much coffee do you want to make?</h3>
+       <div class="input-group" style='max-width: 250px;'>
+        <input type="text" class="form-control input-lg" placeholder="Amount in Ounces" aria-describedby="basic-addon2" value='64' id='target_final_amount'></input>
+        <span class="input-group-addon" id="basic-addon2">Ounces</span>
+       </div>
+       <p>
+         <span class='highlight drink_count_text'>
+           <span class='highlight_text'>
+             <small>This will make about <span id='drink_count'></span> regular sized drinks</small>
+           </span>
+         </span>
+        </p>
+     </div>
+
+     <div class='row'>
+        <div class='col-lg-6'>
+         <div class='from-group'>
+           <label>Brew Coffee ratio?</label>
+            <select class="form-control" id="coffee_to_water">
+              <option value="5">Normal - 1 : 5</option>
+              <option value="4">Dark - 1 : 4</option>
+              <option value="6">Light - 1 : 6</option>
+            </select>
+         </div>
+       </div>
+       <div class='col-lg-6'>
+         <div class='from-group'>
+           <label>Dillute ratio?</label>
+            <select class="form-control" id="post_brew_dillute">
+              <option value="1">Normal - 1 : 1</option>
+              <option value=".5">Dark - 1 Part Coffee : 1/2 Parts Water</option>
+              <option value="1.5">Light - 1 Part Coffee : 1 1/2 Parts Water</option>
+              <option value="2">Lighter - 1 Part Coffee : 2 Parts Water</option>
+            </select>
+         </div>
+       </div>
+     </div>
+    <canvas id="recipeChart"></canvas>
+  </div>
+
+  <div class='col-sm-4'>
+
+ <ul class='list-group text-left'>
+       <li class='list-group-item'>
+         <h4 class="list-group-item-heading text-center">What You Need</h4>
+       </l>
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>Filtered Water</h4>
+         <p>
+         <span class='highlight'>
+           <span class='highlight_text'>
+             <span id='total_water_grms'>xx</span> Grams
+           </span>
+          </span>
+         <br>
+         <small>Make sure you have nice tasting filtered water. <br>Bad water = bad coffee.</small>
+         </p>
+       </li>
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>Great Coffee</h4>
+         <p>
+         <span class='highlight'>
+           <span class='highlight_text'>
+             <span class='total_coffee'>xx</span> Grams
+           </span>
+          </span>
+         <br>
+         <small>For a dark flavor stick with espresso roast, for a lighter more tea like flavor go with a light roast. Medium roast is just boring</small>
+         <br><small><a href='#TODO'>Cheap Option</a> | <a href='#TODO'>Fancy Option</a></small>
+         </p>
+       </li>
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>Burr Grinder</h4>
+         <small>Or just have your coffee shop grind it fresh, never buy pre-ground coffee. That is a terrible sin.</small>
+         <br><small><a href='#TODO'>Cheap Option</a> | <a href='#TODO'>Fancy Option</a></small>
+         </p>
+       </li>
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>A Large Jar or Pitcher</h4>
+          <p><small><a href='#TODO'>Cheap Option</a> | <a href='#TODO'>Fancy Option</a></small>
+         </p>
+       </li>
+
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>Cheesecloth or other Filter</h4>
+           <small>The idea is to just have something to separate the grinds from the water. If you have a <a href='#TODO'>Chemex</a> or other filter that works great.</small>
+         <br><small><a href='#TODO'>Cheap Option</a> | <a href='#TODO'>Fancy Option</a></small>
+         </p>
+       </li>
+       <li class='list-group-item'>
+          <h4 class='list-group-item-heading'>Kitchen Scale</h4>
+          <small>To do cold brew right you really need a scale. I'll make an adapted version soon for measuring cups.</small>
+         <br><small><a href='#TODO'>Cheap Option</a> | <a href='#TODO'>Fancy Option</a></small></p>
+       </li>
+     </ul>
+  </div>
+
+  <div class='col-sm-4'>
+
+    <h4>Step 1. Grind and Weigh Your Coffee</h4>
+    <ul>
+      <li>Put your pitcher or jar on top of your scale.</li>
+      <li>Hit "Tare" so the scale measures zero.</li>
+      <li>Add your Coffee until you hit your target weight.</li>
+      <li>NOTE: If you are using "cheesecloth" to filter, you'll want to put that inside your jar or pitcher when you "tare" the scale, then add your coffee into the cheesecloth inside the pitcher.</li>
+    </ul>
+
+    <h4>Step 2. Add Brew Water</h4>
+    <ul>
+      <li>Now that you have coffee in the jar,</li>
+      <li>Hit "Tare" so the scale measures zero again.</li>
+      <li>Add only
+       <span class='highlight'>
+          <span class='highlight_text'>
+            <span id='brew_water'>xx</span> Grams
+          </span>
+        </span> of your cold or room temp filtered water.
+      </li>
+      <li>Cover your pitcher or jar and leave it in a cool dark place.</li>
+    </ul>
+
+    <h4>Step 3. Wait 12 - 18 Hours</h4>
+    <ul>
+      <li>I usually do 12, 18 does make it a little richer.</li>
+      <li>If you are able it's good to stir or shake the jar a couple times while it brews, although not essential.</li>
+    </ul>
+
+    <h4>Step 4. Filter</h4>
+    <ul>
+      <li>Grab your chemex or other filter method and pour out the coffee so it filters.</li>
+      <li>If you did it with the cheesecloth simply pull out the cheesecloth with all the grounds inside.</li>
+    </ul>
+
+    <h4>Step 5. Dilute</h4>
+    <ul>
+      <li>Put your jar or pitcher of filtered brewed coffee concentrate on your scale and "tare" it again.</li>
+      <li>Add the last
+       <span class='highlight'>
+          <span class='highlight_text'>
+            <span id='dillute_water'>xx</span> Grams
+          </span>
+        </span> of your cold or room temp filtered water.
+      </li>
+
+    </ul>
+
+
+  </div>
+
+</div>
+</div>
+
+<div>
+<script src="scripts.js"></script>
+</body>
+</html>
